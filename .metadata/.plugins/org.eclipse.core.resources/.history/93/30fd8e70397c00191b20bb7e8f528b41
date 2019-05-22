@@ -1,0 +1,15 @@
+server:
+  port: 8002
+
+security:
+  oauth2:
+    client:
+      accessTokenUri: http://localhost:8000/oauth/token
+      clientId: clientid
+      clientSecret: clientsecret
+      scope: openid
+      grant-type: client_credentials
+      
+spring:
+  main:
+    allow-bean-definition-overriding: true

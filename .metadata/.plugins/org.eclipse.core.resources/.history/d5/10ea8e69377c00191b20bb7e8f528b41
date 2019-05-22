@@ -1,0 +1,22 @@
+package com.kt.oauthclient;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+@EnableOAuth2Client
+public class OauthclientApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(OauthclientApplication.class, args);
+	}
+
+	@GetMapping("/api") 
+    public String home() {
+
+        return restTemplate.getForObject("http://localhost:8001/whoami", String.class);
+    }
+}

@@ -1,0 +1,9 @@
+package com.kt.service;
+
+@Configuration
+class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/**");
+    }
+}

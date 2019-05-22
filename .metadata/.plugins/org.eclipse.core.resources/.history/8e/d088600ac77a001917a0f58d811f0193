@@ -1,0 +1,5 @@
+package com.kt.gatway;
+
+public class SayHelloConfiguration {
+
+}

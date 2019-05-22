@@ -1,0 +1,5 @@
+package com.kt.service;
+
+public class WebSecurityConfig {
+
+}
