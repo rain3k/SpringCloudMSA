@@ -1,8 +1,6 @@
 package com.kt.service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,18 +42,5 @@ class MessageRestController {
     String greeting() {
     	log.info("Access /greeting");
         return "greeting service";
-    }
-}
-
-@RestController
-class ServiceInstanceRestController {
-
-    @Autowired
-    private DiscoveryClient discoveryClient;
-
-    @RequestMapping("/service-instances/{applicationName}")
-    public List<ServiceInstance> serviceInstancesByApplicationName(
-            @PathVariable String applicationName) {
-        return this.discoveryClient.getInstances(applicationName);
     }
 }

@@ -2,12 +2,16 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="lom" key="selection"/>
+		<item value="WebSecurityConfigurerAdapter" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="WebSecurityConfigurerAdapter"/>
+			<item value="DisableSecurityConfig"/>
+			<item value="oauth2ClientContext"/>
+			<item value="hystrix-dashboard"/>
 			<item value="lom"/>
 			<item value="rom"/>
 		</list>

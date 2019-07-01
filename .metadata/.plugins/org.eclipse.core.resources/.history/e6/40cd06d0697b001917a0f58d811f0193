@@ -1,5 +1,0 @@
-package io.spring.foodservice.domain;
-
-public class Food {
-
-}

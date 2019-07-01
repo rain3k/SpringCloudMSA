@@ -1,7 +1,0 @@
-package com.kt.service;
-
-@RefreshScope
-@RestController
-public class MessageRestController {
-
-}

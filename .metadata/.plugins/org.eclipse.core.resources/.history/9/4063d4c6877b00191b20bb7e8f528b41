@@ -1,6 +1,0 @@
-package com.kt.service;
-
-@Configuration
-class DisableSecurityConfig  {
-    
-}

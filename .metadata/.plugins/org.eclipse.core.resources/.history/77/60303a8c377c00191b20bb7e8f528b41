@@ -1,9 +1,0 @@
-server:
-  port: 8001
-security:
-  oauth2:
-    client:
-      client-id: clientid
-      client-secret: clientsecret
-    resource:
-      token-info-uri: http://localhost:8000/oauth/check_token

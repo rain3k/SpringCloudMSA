@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
+<aop-project name="service2"/>
+<aop-project name="oauth"/>
 <aop-project name="registry"/>
-<aop-project name="gatway"/>
+<aop-project name="oauthclient"/>
+<aop-project name="gatway">
+<aspect-definition advice-class-name="com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect" advice-method-name="methodsAnnotatedWithHystrixCommand(org.aspectj.lang.ProceedingJoinPoint)" advice-type="AROUND" aspect-end-line-number="-1" aspect-name="hystrixCommandAspect" aspect-start-line-number="-1" factory-id="org.springframework.ide.eclipse.aop.core.annotationAspectDefinitionElementFactory" file="/gatway/src/main/java/com/kt/gatway/GatwayApplication.java" pointcut-expression="hystrixCommandAnnotationPointcut() || hystrixCollapserAnnotationPointcut()" proxy-target-class="true">
+<aop-reference advice-type="AROUND" bean="1:BeansModel|2:gatway|3:java:com.kt.gatway.GatwayApplication|8:gatwayApplication:24" bean-file="/gatway/src/main/java/com/kt/gatway/GatwayApplication.java" bean-start-line="24" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/gatway/src/main/java/com/kt/gatway/GatwayApplication.java" source="=gatway/\/Users\/kimkyungkuk\/.m2\/repository\/com\/netflix\/hystrix\/hystrix-javanica\/1.5.18\/hystrix-javanica-1.5.18.jar&lt;com.netflix.hystrix.contrib.javanica.aop.aspectj(HystrixCommandAspect.class[HystrixCommandAspect~methodsAnnotatedWithHystrixCommand~Lorg.aspectj.lang.ProceedingJoinPoint;" source-start-line="-1" target="=gatway/src\/main\/java&lt;com.kt.gatway{GatwayApplication.java[GatwayApplication~failover~QString;" target-start-line="43"/>
+</aspect-definition>
+</aop-project>
 <aop-project name="config"/>
-<aop-project name="foodservice"/>
+<aop-project name="resource-server"/>
 <aop-project name="service"/>
 </aop-reference-model>
