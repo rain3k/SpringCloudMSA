@@ -1,34 +1,35 @@
-package com.kt.service;
-
-import javax.sql.DataSource;
+package com.kt.service.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private DataSource dataSource;
+	private LoggingAccessDeniedHandler accessDeniedHandler;
+	@Autowired
+	private UserDetailsService userSecurityDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").permitAll().and().logout().permitAll();
+		http.csrf().disable().authorizeRequests().antMatchers("/", "/home", "/about", "/css/**", "/webjars/**").permitAll()
+				.antMatchers("/admin/**").hasAnyRole("ADMIN").antMatchers("/user/**").hasAnyRole("USER").anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll().and()
+				.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource).withDefaultSchema().withUser("user").password("password")
-				.roles("USER").and().withUser("admin").password("password").roles("USER", "ADMIN");
+		auth.userDetailsService(userSecurityDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean

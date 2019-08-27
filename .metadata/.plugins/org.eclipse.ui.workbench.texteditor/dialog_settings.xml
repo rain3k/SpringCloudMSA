@@ -2,12 +2,14 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="WebSecurityConfigurerAdapter" key="selection"/>
+		<item value="UserDetailsService" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="UserDetailsService"/>
+			<item value="jdbc"/>
 			<item value="WebSecurityConfigurerAdapter"/>
 			<item value="DisableSecurityConfig"/>
 			<item value="oauth2ClientContext"/>
@@ -22,7 +24,7 @@
 		<item value="294" key="DIALOG_WIDTH"/>
 		<item value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont" key="DIALOG_FONT_NAME"/>
 		<item value="408" key="DIALOG_HEIGHT"/>
-		<item value="558" key="DIALOG_X_ORIGIN"/>
-		<item value="166" key="DIALOG_Y_ORIGIN"/>
+		<item value="877" key="DIALOG_X_ORIGIN"/>
+		<item value="162" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
