@@ -9,21 +9,20 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kt.service.dao.UserMapper;
 import com.kt.service.dto.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service 
 public class UserSecurityDetailsService implements UserDetailsService{
 	private static final String ROLE_PREFIX = "ROLE_";
 
 	@Autowired
 	UserMapper userMapper;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,7 +30,6 @@ public class UserSecurityDetailsService implements UserDetailsService{
 		if (member != null) {
 			member.setAuthorities(makeGrantedAuthority(userMapper.readAuthority(username)));
 		}
-		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		return new SecurityMember(member);
 	}
 

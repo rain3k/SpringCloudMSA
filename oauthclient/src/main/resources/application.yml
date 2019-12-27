@@ -4,11 +4,11 @@ server:
 security:
   oauth2:
     client:
-      accessTokenUri: http://localhost:8000/oauth/token
-      clientId: clientid
-      clientSecret: clientsecret
-      scope: openid
-      grant-type: client_credentials
+      accessTokenUri: http://localhost:8082/oauth/token
+      clientId: client
+      clientSecret: "{bcrypt} $2a$10$iP9ejueOGXO29.Yio7rqeuW9.yOC4YaV8fJp3eIWbP45eZSHFEwMG"
+      scope: read_profile
+      grant-type: authorization_code
       
 spring:
   main:

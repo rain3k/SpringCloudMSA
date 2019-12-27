@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kt.service.dao.OAuthClientDetails">
+    <insert id="insert" parameterType="map">
+		INSERT INTO oauth_client_details
+		(
+			client_id,
+			resource_ids,
+			client_secret,
+			scope,
+			authorized_grant_types,
+			web_server_redirect_uri,
+			authorities,
+			access_token_validity,
+			refresh_token_validity,
+			additional_information,
+			autoapprove
+		)
+		VALUES
+		(
+			#{client_id},
+			#{resource_ids},
+			#{client_secret},
+			#{scope},
+			#{authorized_grant_types},
+			#{web_server_redirect_uri},
+			#{authorities},
+			#{access_token_validity},
+			#{refresh_token_validity},
+			#{additional_information},
+			#{autoapprove}
+		);
+	</insert>
+	<select id="select" parameterType="map" resultType="map">
+		SELECT
+			client_id,
+			resource_ids,
+			client_secret,
+			scope,
+			authorized_grant_types,
+			web_server_redirect_uri,
+			authorities,
+			access_token_validity,
+			refresh_token_validity,
+			additional_information,
+			autoapprove
+		FROM
+			oauth_client_details
+	</select>
+</mapper>

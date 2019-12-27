@@ -15,33 +15,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestOperations;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SpringBootApplication
 @RestController
 @EnableOAuth2Client
 public class OauthclientApplication {
 
 	@Autowired
-    private RestOperations restTemplate;
-	
+	private RestOperations restTemplate;
+
 	public static void main(String[] args) {
 		SpringApplication.run(OauthclientApplication.class, args);
 	}
 
-	@GetMapping("/api") 
-    public String home() {
-        return restTemplate.getForObject("http://localhost:8001/whoami", String.class);
-    }
+	@GetMapping("/api")
+	public String home() {
+		log.debug("===================== api =====================");
+		return restTemplate.getForObject("http://localhost:8001/whoami", String.class);
+	}
 }
 
 @Configuration
 class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
-        @Override
-        public void configure(WebSecurity web) throws Exception {
-                web.ignoring().antMatchers("/**");
-        }
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/**");
+	}
 
-    @Bean 
-    public RestOperations restTemplate(OAuth2ProtectedResourceDetails resource, OAuth2ClientContext oauth2ClientContext) {
-        return new OAuth2RestTemplate(resource, oauth2ClientContext);
-    }
+	@Bean
+	public RestOperations restTemplate(OAuth2ProtectedResourceDetails resource,
+			OAuth2ClientContext oauth2ClientContext) {
+		return new OAuth2RestTemplate(resource, oauth2ClientContext);
+	}
 }

@@ -16,10 +16,24 @@
 <fullyQualifiedTypeName name="org.springframework.security.core.annotation.AuthenticationPrincipal"/>
 <fullyQualifiedTypeName name="java.security.Principal"/>
 <fullyQualifiedTypeName name="org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder"/>
-<fullyQualifiedTypeName name="javax.sql.DataSource"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.User"/>
 <fullyQualifiedTypeName name="com.kt.service.dto.Member"/>
 <fullyQualifiedTypeName name="com.kt.service.config.security.UserSecurityDetailsService"/>
+<fullyQualifiedTypeName name="javax.sql.DataSource"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="org.springframework.web.client.RestTemplate"/>
+<fullyQualifiedTypeName name="groovy.util.logging.Slf4j"/>
+<fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
+<fullyQualifiedTypeName name="org.springframework.boot.autoconfigure.security.servlet.PathRequest"/>
+<fullyQualifiedTypeName name="org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest"/>
+<fullyQualifiedTypeName name="java.security.Key"/>
+<fullyQualifiedTypeName name="org.apache.commons.codec.binary.Base64"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.kt.service.dao.OAuthClientDetails"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
+<fullyQualifiedTypeName name="com.kt.service.service.OAuthService"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 </qualifiedTypeNameHistroy>
