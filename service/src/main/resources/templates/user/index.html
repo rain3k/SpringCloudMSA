@@ -2,39 +2,24 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
 	layout:decorate="~{fragments/layout}">
+	
 <head>
 <title>Secured</title>
 </head>
 <body>
 	<div layout:fragment="content" th:remove="tag">
-		<h1>OAuth2.0 Service</h1>
+		<h1>계정 추가</h1>
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<form>
+					<form action="/user/add" method="post">
 					  <div class="form-group">
-					    <label for="exampleInputEmail1">클라이언트 ID</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="클라이언트 ID">
+					    <label for="exampleInputEmail1">아이디</label>
+					    <input type="text" name="username" class="form-control" id="id" placeholder="아이디">
 					  </div>
 					  <div class="form-group">
-					    <label for="exampleInputEmail1">리소스 ID</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="리소스 ID">
-					  </div>
-					  <div class="form-group">
-					    <label for="exampleInputEmail1">Secret</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Secret">
-					  </div>
-					  <div class="form-group">
-					    <label for="exampleInputEmail1">Scope</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="read_profile, read_posts">
-					  </div>
-					  <div class="form-group">
-					    <label for="exampleInputEmail1">Authorized grant type</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="read_profile, read_posts">
-					  </div>
-					  <div class="form-group">
-					    <label for="exampleInputEmail1">Web Server Redirect URI</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Web Server Redirect URI">
+					    <label for="exampleInputEmail1">비밀번호</label>
+					    <input type="password" class="form-control" id="password" placeholder="비밀번호">
 					  </div>
 					  <button type="submit" class="btn btn-primary">저장</button>
 					</form>

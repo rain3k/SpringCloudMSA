@@ -4,16 +4,26 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import groovy.util.logging.Slf4j;
+import com.kt.service.dto.Member;
 
-@Slf4j
 @Controller
 public class UserController {
-
+	
     @GetMapping("/user")
     public String userView(@RequestParam Map<String, Object> params) {
         return "/user/index";
+    }
+    
+    @PostMapping("/user/add")
+    public String userAdd(Member member) {
+    	return "/user/index";
+    }
+
+    @GetMapping("/user/list")
+    public String userList(@RequestParam Map<String, Object> params) {
+        return "/user/list";
     }
 }

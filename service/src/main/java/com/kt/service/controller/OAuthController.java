@@ -20,10 +20,15 @@ public class OAuthController {
 	@Autowired
 	OAuthService oAuthService;
 	
+    @GetMapping("/oAuth/index")
+    public String oAuth(@RequestParam Map<String, Object> params) {
+        return "/oAuth/index";
+    }
+    
     @GetMapping("/oAuth/list")
     @ResponseBody
     public List<Map<String, Object>> oAuthList(@RequestParam Map<String, Object> params) {
     	List<Map<String, Object>> oAuthClientDetailsList = oAuthService.oAuthClientDetailsList(params);
-        return oAuthClientDetailsList;
+    	return oAuthClientDetailsList;
     }
 }
