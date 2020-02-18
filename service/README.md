@@ -1,3 +1,5 @@
+JWT 인증 기반 API서버, oAuth2.0 기능 지원
+
 
 http://localhost:8082/oauth/authorize?client_id=client&redirect_uri=http://localhost:8001/whoami&response_type=code&scope=read_profile
 

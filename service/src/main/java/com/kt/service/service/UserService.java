@@ -14,6 +14,10 @@ import com.kt.service.config.security.SecurityMember;
 import com.kt.service.dao.UserMapper;
 import com.kt.service.dto.Member;
 
+/**
+ * @author kimkyungkuk
+ * Spring Security 인증을 위해 UserDetailsService interface 정의
+ */
 @Service
 public class UserService implements UserDetailsService{
 	private static final String ROLE_PREFIX = "ROLE_";

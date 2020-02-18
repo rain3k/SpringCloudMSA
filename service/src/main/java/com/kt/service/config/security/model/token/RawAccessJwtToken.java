@@ -13,6 +13,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
+/**
+ * @author kimkyungkuk
+ * JWT Token 값 Parsing
+ */
 public class RawAccessJwtToken implements JwtToken {
     private static Logger logger = LoggerFactory.getLogger(RawAccessJwtToken.class);
             
@@ -23,8 +27,6 @@ public class RawAccessJwtToken implements JwtToken {
     }
 
     /**
-     * Parses and validates JWT Token signature.
-     * 
      * @throws BadCredentialsException
      * @throws JwtExpiredTokenException
      * 

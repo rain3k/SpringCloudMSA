@@ -21,6 +21,11 @@ import com.kt.service.config.security.auth.JwtAuthenticationToken;
 import com.kt.service.config.security.auth.jwt.tokenExtractor.TokenExtractor;
 import com.kt.service.config.security.model.token.RawAccessJwtToken;
 
+/**
+ * @author kimkyungkuk
+ * JWT를 이용한 인증객체 생성
+ * Request Header에 Authorization키 값을 이용하여 인증객체 생성
+ */
 public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
     private final AuthenticationFailureHandler failureHandler;
     private final TokenExtractor tokenExtractor;

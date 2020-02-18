@@ -10,6 +10,10 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author kimkyungkuk
+ * JWT 기반 로그인, oAuth 2.0 기능 개발
+ */
 @SpringBootApplication()
 @EnableDiscoveryClient
 public class ServiceApplication {

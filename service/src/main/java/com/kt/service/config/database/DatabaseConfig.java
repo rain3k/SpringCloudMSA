@@ -13,19 +13,28 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @author kimkyungkuk
+ * com.kt.service.dao 패키지 내 class를 Mapper로 생성
+ */
 @Configuration
-@MapperScan(basePackages="com.kt.service",sqlSessionFactoryRef="sqlSessionFactory")
+@MapperScan(basePackages="com.kt.service.dao",sqlSessionFactoryRef="sqlSessionFactory")
 @EnableTransactionManagement
 public class DatabaseConfig {
 	
 	@Autowired
 	DataSource dataSource;
 	
+	/**
+	 * mapper 폴더내 xml을 mapper파일로 인식
+	 * @param datasource
+	 * @return
+	 * @throws Exception
+	 */
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource datasource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(datasource);
-		sqlSessionFactory.setTypeAliasesPackage("com.kt.service.dao");
 		sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*.xml"));
 		return sqlSessionFactory.getObject();
 	}

@@ -20,6 +20,10 @@ import org.springframework.util.Assert;
 import com.kt.service.config.security.model.UserContext;
 import com.kt.service.service.UserService;
 
+/**
+ * @author kimkyungkuk
+ * 인증 객체에서 추출한 username과 password를 이용하여 DB값과 확인 후 권한 부여
+ */
 @Component
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder encoder;

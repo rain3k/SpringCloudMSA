@@ -19,6 +19,10 @@ import com.kt.service.config.security.model.token.RawAccessJwtToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 
+/**
+ * @author kimkyungkuk
+ * 인증 객체에서 추출한 jwt Token값을 이용하여 확인 후 권한 부여
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class JwtAuthenticationProvider implements AuthenticationProvider {
