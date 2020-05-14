@@ -6,8 +6,8 @@ export default {
       icon: 'icon-people',
       children: [
         {
-          name: 'Login',
-          url: '/login',
+          name: '계정목록',
+          url: '/account-mng',
           icon: 'icon-star',
         },
         {

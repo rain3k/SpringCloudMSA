@@ -2,7 +2,7 @@ package com.kt.service.config.security.model;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 
 public class UserContext {

@@ -20,11 +20,14 @@ import org.springframework.util.Assert;
 import com.kt.service.config.security.model.UserContext;
 import com.kt.service.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author kimkyungkuk
  * 인증 객체에서 추출한 username과 password를 이용하여 DB값과 확인 후 권한 부여
  */
 @Component
+@Slf4j
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder encoder;
     private final UserService userService;
@@ -37,6 +40,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    	log.debug("AjaxAuthenticationProvider-authenticate");
         Assert.notNull(authentication, "No authentication data provided");
 
         String username = (String) authentication.getPrincipal();

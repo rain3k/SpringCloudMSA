@@ -18,12 +18,14 @@ import com.kt.service.config.security.model.token.RawAccessJwtToken;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author kimkyungkuk
  * 인증 객체에서 추출한 jwt Token값을 이용하여 확인 후 권한 부여
  */
 @Component
+@Slf4j
 @SuppressWarnings("unchecked")
 public class JwtAuthenticationProvider implements AuthenticationProvider {
     private final JwtSettings jwtSettings;
@@ -35,8 +37,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    	log.debug("JwtAuthenticationProvider-authenticate");
         RawAccessJwtToken rawAccessToken = (RawAccessJwtToken) authentication.getCredentials();
-
         Jws<Claims> jwsClaims = rawAccessToken.parseClaims(jwtSettings.getTokenSigningKey());
         String subject = jwsClaims.getBody().getSubject();
         List<String> scopes = jwsClaims.getBody().get("scopes", List.class);

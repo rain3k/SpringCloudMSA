@@ -21,11 +21,14 @@ import com.kt.service.config.security.auth.JwtAuthenticationToken;
 import com.kt.service.config.security.auth.jwt.tokenExtractor.TokenExtractor;
 import com.kt.service.config.security.model.token.RawAccessJwtToken;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author kimkyungkuk
  * JWT를 이용한 인증객체 생성
  * Request Header에 Authorization키 값을 이용하여 인증객체 생성
  */
+@Slf4j
 public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
     private final AuthenticationFailureHandler failureHandler;
     private final TokenExtractor tokenExtractor;
@@ -41,6 +44,7 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
+    	log.debug("JwtTokenAuthenticationProcessingFilter-attemptAuthentication");
         String tokenPayload = request.getHeader(WebSecurityConfig.AUTHENTICATION_HEADER_NAME);
         RawAccessJwtToken token = new RawAccessJwtToken(tokenExtractor.extract(tokenPayload));
         return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));

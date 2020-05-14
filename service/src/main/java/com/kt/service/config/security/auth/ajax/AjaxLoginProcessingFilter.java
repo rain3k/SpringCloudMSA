@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -23,11 +23,14 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kt.service.config.security.exception.AuthMethodNotSupportedException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author kimkyungkuk
  * Ajax로 요청시 처리 : Header X-Requested-With의 키값 XMLHttpRequest 확인
  * 요청에서 username와 password를 추출하여 인증객체 생성 
  */
+@Slf4j
 public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingFilter {
     private static Logger logger = LoggerFactory.getLogger(AjaxLoginProcessingFilter.class);
 
@@ -47,6 +50,7 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
+    	log.debug("AjaxLoginProcessingFilter-attemptAuthentication");
         if (!HttpMethod.POST.name().equals(request.getMethod()) ) {
             if(logger.isDebugEnabled()) {
                 logger.debug("Authentication method not supported. Request method: " + request.getMethod());

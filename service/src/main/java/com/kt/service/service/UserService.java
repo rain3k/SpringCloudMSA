@@ -2,6 +2,7 @@ package com.kt.service.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.kt.service.config.security.SecurityMember;
+import com.kt.service.dao.OAuthClientDetails;
 import com.kt.service.dao.UserMapper;
 import com.kt.service.dto.Member;
 
@@ -24,6 +26,9 @@ public class UserService implements UserDetailsService{
 
 	@Autowired
 	UserMapper userMapper;
+	
+	@Autowired
+	OAuthClientDetails oAuthClientDetails;
 
 	@Override
 	public SecurityMember loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,5 +43,10 @@ public class UserService implements UserDetailsService{
 		List<GrantedAuthority> list = new ArrayList<>();
 		roles.forEach(role -> list.add(new SimpleGrantedAuthority(ROLE_PREFIX + role)));
 		return list;
+	}
+
+	public void userUpdate(Map<String, Object> params) {
+		userMapper.userUpdate(params);
+		oAuthClientDetails.insert(params);
 	}
 }
