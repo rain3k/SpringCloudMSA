@@ -50,13 +50,13 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
-    	log.debug("AjaxLoginProcessingFilter-attemptAuthentication");
-        if (!HttpMethod.POST.name().equals(request.getMethod()) ) {
-            if(logger.isDebugEnabled()) {
-                logger.debug("Authentication method not supported. Request method: " + request.getMethod());
-            }
-            throw new AuthMethodNotSupportedException("Authentication method not supported");
-        }
+    	log.debug("AjaxLoginProcessingFilter-attemptAuthentication:"+request.getMethod());
+//        if (!HttpMethod.POST.name().equals(request.getMethod()) ) {
+//            if(logger.isDebugEnabled()) {
+//                logger.debug("Authentication method not supported. Request method: " + request.getMethod());
+//            }
+//            throw new AuthMethodNotSupportedException("Authentication method not supported");
+//        }
 
         LoginRequest loginRequest = objectMapper.readValue(request.getReader(), LoginRequest.class);
         

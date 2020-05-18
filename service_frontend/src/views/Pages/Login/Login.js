@@ -35,7 +35,7 @@ class Login extends Component {
       }
     };
 
-    axios.post('http://127.0.0.1:8082/api/auth/login', data, config)
+    axios.post('http://127.0.0.1:8082/service/api/auth/login', data, config)
     .then( response => { 
       window.sessionStorage.setItem('token',response.token);
       window.sessionStorage.setItem('username',this.state.username);

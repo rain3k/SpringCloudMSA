@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
  * JWT 기반 로그인, oAuth 2.0 기능 개발
  */
 @SpringBootApplication()
-//@ConfigurationProperties
 @EnableDiscoveryClient
 public class ServiceApplication {
 

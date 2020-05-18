@@ -29,16 +29,16 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
-    private final BCryptPasswordEncoder encoder;
-    private final UserService userService;
+	
+    private UserService userService;
+	private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    public AjaxAuthenticationProvider(final UserService userService, final BCryptPasswordEncoder encoder) {
-        this.userService = userService;
-        this.encoder = encoder;
-    }
+	public AjaxAuthenticationProvider(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+    	this.userService = userService;
+    	this.passwordEncoder = passwordEncoder;
+	}
 
-    @Override
+	@Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     	log.debug("AjaxAuthenticationProvider-authenticate");
         Assert.notNull(authentication, "No authentication data provided");
@@ -48,7 +48,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 
         UserDetails user = userService.loadUserByUsername(username);
         
-        if (!encoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
         }
 

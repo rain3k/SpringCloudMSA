@@ -25,6 +25,7 @@ import com.kt.service.config.security.auth.jwt.JwtAuthenticationProvider;
 import com.kt.service.config.security.auth.jwt.JwtTokenAuthenticationProcessingFilter;
 import com.kt.service.config.security.auth.jwt.SkipPathRequestMatcher;
 import com.kt.service.config.security.auth.jwt.tokenExtractor.TokenExtractor;
+import com.kt.service.service.UserService;
 
 /**
  * @author kimkyungkuk
@@ -35,15 +36,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
 	public static final String AUTHENTICATION_OAUTH_URL = "/oauth/**";
-	public static final String AUTHENTICATION_URL = "/api/auth/login";
-	public static final String REFRESH_TOKEN_URL = "/api/auth/token";
-	public static final String API_ROOT_URL = "/api/**";
+	public static final String AUTHENTICATION_URL = "/service/api/auth/login";
+	public static final String REFRESH_TOKEN_URL = "/service/api/auth/token";
+	public static final String API_ROOT_URL = "/service/api/**";
 	public static final String PROMETHEUS_URL = "/actuator/prometheus";
-
+	
+	@Autowired private UserService userService;
 	@Autowired private RestAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired private AuthenticationSuccessHandler successHandler;
     @Autowired private AuthenticationFailureHandler failureHandler;
-    @Autowired private AjaxAuthenticationProvider ajaxAuthenticationProvider;
     @Autowired private JwtAuthenticationProvider jwtAuthenticationProvider;
     @Autowired private TokenExtractor tokenExtractor;
     @Autowired private AuthenticationManager authenticationManager;
@@ -66,7 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(permitAllEndpointList.toArray(new String[permitAllEndpointList.size()])).permitAll()
 				.antMatchers(API_ROOT_URL).authenticated()
 				.antMatchers(AUTHENTICATION_OAUTH_URL).authenticated()
-				.and().addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
+				.and()
+				.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildAjaxLoginProcessingFilter(AUTHENTICATION_URL),
 						UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, API_ROOT_URL),
@@ -106,7 +108,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * Ajax,JWT 인증 처리하는 Provider Manager에 등록
      */
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    	auth.authenticationProvider(ajaxAuthenticationProvider);
+    	auth.authenticationProvider(new AjaxAuthenticationProvider(userService,passwordEncoder()));
     	auth.authenticationProvider(jwtAuthenticationProvider);
     }
 
