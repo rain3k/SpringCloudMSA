@@ -7,8 +7,6 @@ config_init : config 서버에서 사용할 서버 설정들이 저장되어있�
 
 gatway : 부하 분산을 위한 gateway로 최초 Request받고 service,service2로 부하분산 및 Failover 처리를 해준다.
 
-oauth : ㅡㅡ;; 지울 거임
-
 oauthclient : service 서버에서 제공하고 있는 oauth 2.0와 연동되는 Client로 개발하려함
 
 registry : Eureka 기반으로 Spring boot으로 Application을 개발하고 서버를 실행하면 Eureka에 Domain(IP+Port)을 생성해준다. 
@@ -24,6 +22,10 @@ service2 : gateway의 부하 분산 기능 테스트를 위해 만든 서버
 
 ## 실행순서
 config -> registry -> service
+
+# service_frontend 실행 명령어
+cd service_frontend
+npm start
 
 # Prometheus 실행 명령어
 prometheus-2.13.0.darwin-amd64/prometheus --config.file=../service/src/main/resources/prometheus.yml 

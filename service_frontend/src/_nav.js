@@ -1,31 +1,36 @@
 export default {
   items: [
     {
+      title: true,
+      name: 'OAuth 2.0',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
       name: '계정관리',
-      url: '/pages',
-      icon: 'icon-people',
+      url: '/account-mng-list',
+      icon: 'icon-people'
+    },{
+      name: 'OAuth 서비스',
+      url: '/oauth-mng-list',
+      icon: 'icon-puzzle'
+    },{
+      name: 'OAuth 테스트',
+      icon: 'icon-puzzle',
       children: [
         {
-          name: '계정목록',
-          url: '/account-mng',
-          icon: 'icon-star',
-        },
-        {
-          name: 'Register',
-          url: '/register',
-          icon: 'icon-star',
-        },
-        {
-          name: 'Error 404',
-          url: '/404',
-          icon: 'icon-star',
-        },
-        {
-          name: 'Error 500',
-          url: '/500',
-          icon: 'icon-star',
-        },
-      ],
+          name: '1단계 : 로그인',
+          url: '/oauth-test-login',
+          icon: 'icon-puzzle',
+        },{
+          name: '2단계 : 권한인증',
+          url: '/oauth-test-authorize',
+          icon: 'icon-puzzle',
+        }
+      ]
     },{
       name: 'Dashboard',
       url: '/dashboard',

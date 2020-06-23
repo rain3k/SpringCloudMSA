@@ -1,14 +1,19 @@
 JWT 인증 기반 API서버, oAuth2.0 기능 지원
 
+로그인
 
-http://localhost:8082/oauth/authorize?client_id=client&redirect_uri=http://localhost:8001/whoami&response_type=code&scope=read_profile
+http://localhost:8082/service/api/auth/login
+
+권한 인증
+
+http://localhost:8082/oauth/authorize?client_id=clientapp&redirect_uri=http://localhost:8002/authorization-code&response_type=code&scope=read_profile
 
 
 인증키를 가져오는 방법
 Oauth2에서 키 발급시 Basic Auth를 통해 인증하며 Basic Auth는 client_id와 Client_secret키 값을 이용해서 인증한다. 
 Client_secret키값을 Basic Auth로 인코딩하면 Spring Security에서 디코딩한뒤 키 값을 다시 Bcrypt하여 Client_secret값과 비교하여 인증한다.
 
-하단 예의 경우 Y2xpZW50OjEyMzQ=는 1234의 Basic Auth인코딩값이며 DB의 Client_id는 1234의 BCrypt값인 $2a$10$4HUOXA455WD1DZJmim/Mbuxg9QmopIsao9YJcMhjcYB4GnX.Dk15K로 저장되어 있어야 한다. 
+하단 예의 경우 Y2xpZW50OjEyMzQ=는 1234의 Basic Auth인코딩값이며 DB의 Client_secret는 Client_secret의 비밀번호 값인 1234를 BCrypt값으로 변환하여  $2a$10$4HUOXA455WD1DZJmim/Mbuxg9QmopIsao9YJcMhjcYB4GnX.Dk15K로 저장되어 있어야 한다. 
   
 curl -X POST \
   http://localhost:8082/oauth/token \

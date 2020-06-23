@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kt.service.dao.UsersMapper">
+	
+	<select id="usersList" parameterType="Map" resultType="Map">
+        SELECT 
+			u.username,
+		    a.authority,
+		    u.reg_date,
+		    u.upd_date,
+		    u.enabled 
+		FROM users u, authorities a
+		WHERE u.username = a.username
+    </select>
+    
+    <insert id="usersInsert" parameterType="Map">
+    	INSERT INTO site.users
+		(
+			username,
+			password
+		)
+		VALUES
+		(
+			#{username},
+			#{password}
+		)	
+    </insert>
+    
+    <update id="usersUpdate" parameterType="Map">
+    	UPDATE 
+    		site.users
+		SET
+			password = #{password},
+			enabled = #{enabled},
+			upd_date = now()
+		WHERE username = #{username}
+    </update>
+    
+    
+	<select id="readUser" parameterType="String" resultType="com.kt.service.dto.Member">
+        SELECT * FROM users WHERE username = #{username}
+    </select>
+    
+    <select id="readAuthority" parameterType="String" resultType="String">
+        SELECT authority FROM authorities WHERE username = #{username}
+    </select>
+</mapper>

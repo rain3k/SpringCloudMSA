@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import axios from 'axios';
-import Alerts from '../../Notifications/Alerts/Alerts.js';
+import Alerts from '../Notifications/Alerts/Alerts.js';
 
-class Login extends Component {
+class OAuthTestLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +40,8 @@ class Login extends Component {
         localStorage.setItem('token',response.data.token);
         localStorage.setItem('username',this.state.username);
         console.log(response); 
-        this.props.history.push("/");
+        this.setState({ errorMessageAlertShow: true });
+        this.setState({ errorMessage: response.data.token });
       } ) // SUCCESS
       .catch( response => {
         this.setState({ errorMessageAlertShow: true });
@@ -101,7 +102,7 @@ class Login extends Component {
                   </CardBody>
                 </Card>
               </CardGroup>
-              <Alert color="danger" isOpen={this.state.errorMessageAlertShow}>{this.state.errorMessage}</Alert>
+              <Alert color="danger" isOpen={this.state.errorMessageAlertShow}><p>{this.state.errorMessage}</p></Alert>
             </Col>
           </Row>
         </Container>
@@ -110,4 +111,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default OAuthTestLogin;

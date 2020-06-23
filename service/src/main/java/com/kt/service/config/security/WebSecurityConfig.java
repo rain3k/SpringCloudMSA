@@ -27,16 +27,19 @@ import com.kt.service.config.security.auth.jwt.SkipPathRequestMatcher;
 import com.kt.service.config.security.auth.jwt.tokenExtractor.TokenExtractor;
 import com.kt.service.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author kimkyungkuk
  * 웹서버 설정
  */
 @EnableWebSecurity
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
 	public static final String AUTHENTICATION_OAUTH_URL = "/oauth/**";
-	public static final String AUTHENTICATION_URL = "/service/api/auth/login";
+	public static final String AUTHENTICATION_LOGIN_URL = "/service/api/auth/login";
 	public static final String REFRESH_TOKEN_URL = "/service/api/auth/token";
 	public static final String API_ROOT_URL = "/service/api/**";
 	public static final String PROMETHEUS_URL = "/actuator/prometheus";
@@ -49,32 +52,50 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired private TokenExtractor tokenExtractor;
     @Autowired private AuthenticationManager authenticationManager;
     @Autowired private ObjectMapper objectMapper;
+    @Autowired private JwtSettings jwtSettings;
     
 	/**
 	 * JWT기반으로 인증처리 할 것이기 때문에 CSRF 체크할 필요 없음. 
 	 * 에러 : authenticationEntryPointd에서 처리
 	 * 미인증 접근 허가 : /api/auth/login, /api/auth/token, /console
-	 * 인증 접근 허가 : /api/**, /oauth/**
+	 * 인증 접근 허가 : /service/api/**, /oauth/**
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		List<String> permitAllEndpointList = Arrays.asList(PROMETHEUS_URL,AUTHENTICATION_URL, REFRESH_TOKEN_URL, "/console");
-
-		http.csrf().disable() 
-				.exceptionHandling().authenticationEntryPoint(this.authenticationEntryPoint)
-				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and().authorizeRequests()
-				.antMatchers(permitAllEndpointList.toArray(new String[permitAllEndpointList.size()])).permitAll()
-				.antMatchers(API_ROOT_URL).authenticated()
-				.antMatchers(AUTHENTICATION_OAUTH_URL).authenticated()
-				.and()
-				.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
-				.addFilterBefore(buildAjaxLoginProcessingFilter(AUTHENTICATION_URL),
-						UsernamePasswordAuthenticationFilter.class)
-				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, API_ROOT_URL),
-						UsernamePasswordAuthenticationFilter.class)
-				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, AUTHENTICATION_OAUTH_URL),
-						UsernamePasswordAuthenticationFilter.class);
+		List<String> permitAllEndpointList=null;
+		List<String> authorizeEndpointList=null;
+		
+		log.debug("=========check app auth status :" +jwtSettings.getActive()+"=========");
+		permitAllEndpointList = Arrays.asList(PROMETHEUS_URL,AUTHENTICATION_LOGIN_URL, REFRESH_TOKEN_URL,API_ROOT_URL, "/console");
+		authorizeEndpointList = Arrays.asList("/test");
+		if(jwtSettings.getActive()) {
+			http.csrf().disable() 
+			.exceptionHandling().authenticationEntryPoint(this.authenticationEntryPoint)
+			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and().authorizeRequests()
+			.antMatchers(permitAllEndpointList.toArray(new String[permitAllEndpointList.size()])).permitAll()
+			.antMatchers(authorizeEndpointList.toArray(new String[authorizeEndpointList.size()])).authenticated()
+			.and()
+			.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(buildAjaxLoginProcessingFilter(AUTHENTICATION_LOGIN_URL),
+					UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, API_ROOT_URL),
+					UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, AUTHENTICATION_OAUTH_URL),
+					UsernamePasswordAuthenticationFilter.class);
+		}else {
+			http
+	          .authorizeRequests()
+	          .anyRequest()
+	          .authenticated()
+	          .antMatchers("/auth/token").permitAll()
+	          .and()
+	          .formLogin()
+	          .defaultSuccessUrl("/oauth/main")
+	          .permitAll()
+              .and()
+              .logout();
+		}
 	}
 	
 	/**
@@ -117,6 +138,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManager();
 	}
 
+	/**
+	 * 비밀번호 암호화 알고리즘 설정
+	 * @return
+	 */
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -126,4 +151,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
+	
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/**")
+//				.allowedHeaders("/**")
+//				.allowCredentials(true)
+//				.allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+//				.allowedOrigins("/**");
+//			}
+//		};
+//	}
 }

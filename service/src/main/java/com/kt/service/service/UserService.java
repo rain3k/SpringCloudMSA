@@ -10,10 +10,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kt.service.config.security.SecurityMember;
-import com.kt.service.dao.OAuthClientDetails;
-import com.kt.service.dao.UserMapper;
+import com.kt.service.dao.AuthoritiesMapper;
+import com.kt.service.dao.UsersMapper;
 import com.kt.service.dto.Member;
 
 /**
@@ -21,14 +22,15 @@ import com.kt.service.dto.Member;
  * Spring Security 인증을 위해 UserDetailsService interface 정의
  */
 @Service
+@Transactional
 public class UserService implements UserDetailsService{
 	private static final String ROLE_PREFIX = "ROLE_";
 
 	@Autowired
-	UserMapper userMapper;
+	UsersMapper userMapper;
 	
 	@Autowired
-	OAuthClientDetails oAuthClientDetails;
+	AuthoritiesMapper authoritiesMapper;
 
 	@Override
 	public SecurityMember loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,8 +47,15 @@ public class UserService implements UserDetailsService{
 		return list;
 	}
 
-	public void userUpdate(Map<String, Object> params) {
-		userMapper.userUpdate(params);
-		oAuthClientDetails.insert(params);
+	public void usersUpdate(Map<String, Object> params) {
+		userMapper.usersUpdate(params);
+	}
+
+	public List<Map<String,Object>> usersList(Map<String, Object> params) {
+		return userMapper.usersList(params);
+	}
+
+	public boolean usersInsert(Map<String, Object> params) {
+		return userMapper.usersInsert(params) == 1 && authoritiesMapper.authoritiesInsert(params) == 1;
 	}
 }

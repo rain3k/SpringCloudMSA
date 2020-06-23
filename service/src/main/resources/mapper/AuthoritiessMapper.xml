@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kt.service.dao.AuthoritiesMapper">
+
+	<select id="authoritiesList" parameterType="Map" resultType="Map">
+		SELECT 
+			authorities.username,
+			authorities.authority
+		FROM 
+			site.authorities
+	</select>
+
+	<insert id="authoritiesInsert" parameterType="Map">
+		INSERT INTO site.authorities
+		(
+			username,
+			authority
+		)
+		VALUES
+		(
+			#{username},
+			#{authority}
+		)
+	</insert>
+
+	<update id="authoritiesUpdate" parameterType="Map">
+		UPDATE 
+			site.authorities
+		SET
+			authority = #{authority}
+		WHERE 
+			username = #{username}
+	</update>
+</mapper>

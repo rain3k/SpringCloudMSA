@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kt.service.dao.OauthClientDetailsMapper">
+
+	<select id="select" parameterType="map" resultType="map">
+		SELECT
+			client_id,
+			resource_ids,
+			client_secret,
+			scope,
+			authorized_grant_types,
+			web_server_redirect_uri,
+			authorities,
+			access_token_validity,
+			refresh_token_validity,
+			additional_information,
+			autoapprove
+		FROM
+			oauth_client_details
+	</select>
+	
+	<select id="oauthClientDetailsList" parameterType="Map"
+		resultType="Map">
+		SELECT 
+			oauth_client_details.client_id,
+			oauth_client_details.resource_ids,
+			oauth_client_details.client_secret,
+			oauth_client_details.scope,
+			oauth_client_details.authorized_grant_types,
+			oauth_client_details.web_server_redirect_uri,
+			oauth_client_details.authorities,
+			oauth_client_details.access_token_validity,
+			oauth_client_details.refresh_token_validity,
+			oauth_client_details.additional_information,
+			oauth_client_details.autoapprove
+		FROM
+			site.oauth_client_details
+	</select>
+
+	<insert id="oauthClientDetailsInsert" parameterType="Map">
+		INSERT INTO
+			site.oauth_client_details
+		(
+			client_id,
+			resource_ids,
+			client_secret,
+			scope,
+			authorized_grant_types,
+			web_server_redirect_uri,
+			authorities,
+			access_token_validity,
+			refresh_token_validity,
+			additional_information,
+			autoapprove
+		)
+		VALUES
+		(
+			#{client_id},
+			#{resource_ids},
+			#{client_secret},
+			#{scope},
+			#{authorized_grant_types},
+			#{web_server_redirect_uri},
+			#{authorities},
+			#{access_token_validity},
+			#{refresh_token_validity},
+			#{additional_information},
+			#{autoapprove}
+		)
+	</insert>
+
+	<update id="oauthClientDetailsUpdate" parameterType="Map">
+		UPDATE
+			site.oauth_client_details
+		SET
+			client_id = #{client_id},
+			resource_ids = #{resource_ids},
+			client_secret = #{client_secret},
+			scope = #{scope},
+			authorized_grant_types = #{authorized_grant_types},
+			web_server_redirect_uri = #{web_server_redirect_uri},
+			authorities = #{authorities},
+			access_token_validity = #{access_token_validity},
+			refresh_token_validity = #{refresh_token_validity},
+			additional_information = #{additional_information},
+			autoapprove = #{autoapprove}
+		WHERE client_id = #{client_id}
+	</update>
+</mapper>

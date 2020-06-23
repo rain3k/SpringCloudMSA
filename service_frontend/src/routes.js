@@ -1,6 +1,17 @@
 import React from 'react';
 
-const AccountMng = React.lazy(() => import('./views/AccountMng/AccountMng'));
+/*계정 목록/수정*/
+const AccountMngList = React.lazy(() => import('./views/AccountMng/AccountMngList'));
+const AccountMngForm = React.lazy(() => import('./views/AccountMng/AccountMngForm'));
+
+/*OAuth 목록/수정*/
+const OAuthMngList = React.lazy(() => import('./views/OAuthMng/OAuthMngList'));
+const OAuthMngForm = React.lazy(() => import('./views/OAuthMng/OAuthMngForm'));
+
+/*OAuth 목록/수정*/
+const OAuthTestLogin = React.lazy(() => import('./views/OAuthTest/OAuthTestLogin'));
+const OAuthTestAuthorize = React.lazy(() => import('./views/OAuthTest/OAuthTestAuthorize'));
+
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -41,8 +52,17 @@ const User = React.lazy(() => import('./views/Users/User'));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/account-mng', name: '계정목록', component: AccountMng },
+  /*계정 목록/수정*/
+  { path: '/account-mng-list', name: '계정목록', component: AccountMngList },
+  { path: '/account-mng-form', name: '계정 등록/수정', component: AccountMngForm },
 
+  /*OAuth 목록/수정*/
+  { path: '/oauth-mng-list', name: 'OAuth 목록', component: OAuthMngList },
+  { path: '/oauth-mng-form', name: 'OAuth 등록/수정', component: OAuthMngForm },
+
+  /*OAuth 테스트*/
+  { path: '/oauth-test-login', name: 'OAuth 테스트 로그인', component: OAuthTestLogin },
+  { path: '/oauth-test-authorize', name: 'OAuth 테스트 로그인', component: OAuthTestAuthorize },
 
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },

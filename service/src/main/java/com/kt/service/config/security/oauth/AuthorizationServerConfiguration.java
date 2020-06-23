@@ -13,12 +13,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 /**
- * @author kimkyungkuk
- * oAuth2.0 설정, oAuth 관련 정버 DB에 저장
+ * @author kimkyungkuk oAuth2.0 설정, oAuth 관련 정버 DB에 저장
  */
 @Configuration
 @EnableAuthorizationServer
@@ -32,6 +32,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private JdbcAuthorizationCodeServices jdbcAuthorizationCodeServices;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -48,7 +51,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager).approvalStore(approvalStore);
+		endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager).approvalStore(approvalStore)
+				.authorizationCodeServices(jdbcAuthorizationCodeServices);
+		;
+	}
+	
+	@Bean
+	public JdbcAuthorizationCodeServices jdbcAuthorizationCodeServices() {
+		return new JdbcAuthorizationCodeServices(dataSource);
 	}
 
 	@Bean
